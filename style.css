@@ -1,0 +1,519 @@
+/* General Body & Typography */
+:root {
+    --primary-color: #56D364; /* Brighter GitHub-like green for primary actions/highlights */
+    --secondary-color: #8B949E; /* Lighter grey for secondary text */
+    --text-color: #C9D1D9; /* Light grey for general text */
+    --heading-color: #E6EDF3; /* Off-white for headings */
+    --background-light: #161B22; /* Darker background for sections (like GitHub issue comments) */
+    --background-dark: #0D1117; /* Very dark background for hero/footer (like GitHub main background) */
+    --white: #ffffff; /* Still white for specific elements if needed, but rarely used directly */
+    --border-color: #30363D; /* Darker border color */
+    --link-color: #58A6FF; /* Brighter blue for links */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    background-color: var(--background-dark); /* Main body background is now dark */
+    scroll-behavior: smooth; /* Smooth scroll for anchor links */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+a {
+    color: var(--link-color); /* Updated link color to GitHub blue */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #79C0FF; /* Slightly brighter blue on hover */
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: var(--background-dark); /* Very dark background color for hero */
+    color: var(--white);
+    text-align: center;
+    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Make it take up more vertical space */
+    position: relative; /* Added for positioning pseudo-elements */
+    overflow: hidden; /* Ensures the floating elements stay within the section */
+}
+
+/* Floating Shaped Element 1 (using ::before on hero-section) */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    width: 250px; /* Size of the floating element */
+    height: 250px;
+    background: radial-gradient(circle at center, rgba(86, 211, 100, 0.2), transparent 70%); /* Subtle green gradient */
+    filter: blur(50px); /* Blurry effect */
+    border-radius: 50%; /* Circular shape */
+    z-index: 1; /* Behind content, above hero-section background */
+    animation: floatOne 20s ease-in-out infinite alternate; /* Slower, smooth float */
+    pointer-events: none; /* Non-interactive */
+}
+
+/* Floating Shaped Element 2 (using ::after on hero-section) */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    width: 180px; /* Smaller size */
+    height: 180px;
+    background: radial-gradient(circle at center, rgba(88, 166, 255, 0.15), transparent 60%); /* Subtle bluish gradient */
+    filter: blur(40px);
+    border-radius: 50%;
+    z-index: 1;
+    animation: floatTwo 25s linear infinite; /* Different speed and type of movement */
+    pointer-events: none;
+}
+
+/* Keyframes for Floating Element 1 */
+@keyframes floatOne {
+    0% { top: 10%; left: 10%; transform: scale(1) rotate(0deg) opacity(0.8); }
+    25% { top: 80%; left: 30%; transform: scale(1.1) rotate(45deg) opacity(0.7); }
+    50% { top: 20%; left: 70%; transform: scale(0.9) rotate(90deg) opacity(0.9); }
+    75% { top: 60%; left: 5%; transform: scale(1.2) rotate(135deg) opacity(0.75); }
+    100% { top: 10%; left: 10%; transform: scale(1) rotate(0deg) opacity(0.8); }
+}
+
+/* Keyframes for Floating Element 2 */
+@keyframes floatTwo {
+    0% { bottom: 5%; right: 5%; transform: scale(1) rotate(0deg) opacity(0.6); }
+    30% { bottom: 70%; right: 20%; transform: scale(0.9) rotate(-30deg) opacity(0.7); }
+    60% { bottom: 10%; right: 80%; transform: scale(1.2) rotate(-60deg) opacity(0.65); }
+    100% { bottom: 5%; right: 5%; transform: scale(1) rotate(0deg) opacity(0.6); }
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative; /* Ensures hero-content is above the new floating elements */
+    z-index: 2; /* Ensures content is above all background effects */
+}
+
+/* Blurry light effect behind the photo and text (specific to hero-content) */
+.hero-content::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    width: 350px; /* Increased size of the glow */
+    height: 350px; /* Increased size of the glow */
+    /* Radial gradient for the light effect, starting with a semi-transparent primary color (GitHub green) */
+    background: radial-gradient(circle at center, rgba(86, 211, 100, 0.4), transparent 70%); /* Using primary-color for glow */
+    filter: blur(100px); /* More blur for a softer glow */
+    transform: translate(-50%, -50%); /* Adjust for perfect centering */
+    border-radius: 50%; /* Make it a circular glow */
+    z-index: -1; /* Position it behind the .hero-content's direct children (like photo, text) */
+}
+
+
+.profile-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary-color); /* Border color remains primary color */
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-section .tagline {
+    font-size: 1.5em;
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: #8B949E; /* Lighter grey for tagline */
+}
+
+.hero-section .intro-statement {
+    font-size: 1.1em;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    color: #C9D1D9; /* Even lighter grey for intro statement */
+}
+
+.cta-buttons .btn {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 10px;
+    border-radius: 6px; /* Slightly more rounded corners for buttons */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 0 rgba(27, 31, 35, 0.04);
+}
+
+.cta-buttons .primary-btn {
+    background-color: var(--primary-color); /* GitHub green */
+    color: var(--background-dark); /* Dark text on green button */
+    border: 1px solid rgba(27, 31, 35, 0.15); /* Subtle border */
+}
+
+.cta-buttons .primary-btn:hover {
+    background-color: #4CAF50; /* Darker green on hover */
+    border-color: rgba(27, 31, 35, 0.15);
+    transform: translateY(-2px); /* Subtle lift */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cta-buttons .secondary-btn {
+    background-color: #21262D; /* Darker background for secondary button */
+    color: var(--text-color); /* Light text color */
+    border: 1px solid var(--border-color); /* Dark theme border */
+}
+
+.cta-buttons .secondary-btn:hover {
+    background-color: #30363D; /* Slightly darker light grey on hover */
+    color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections */
+.section {
+    padding: 60px 20px;
+    margin-bottom: 0; /* Remove default margin for sections */
+}
+
+.section:nth-child(even) {
+    background-color: var(--background-light); /* GitHub light page background (now a dark shade) */
+}
+
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.skill-category {
+    background-color: var(--background-dark); /* Dark background for cards */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color); /* GitHub-like border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.skill-category h3 {
+    color: var(--primary-color); /* Primary color for category headings */
+    font-size: 1.4em;
+    margin-top: 0;
+    border-bottom: 2px solid var(--border-color); /* Lighter border for separation */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skill-category ul li {
+    margin-bottom: 8px;
+    padding-left: 25px;
+    position: relative;
+    color: var(--text-color); /* Ensure list items use text color */
+}
+
+.skill-category ul li::before {
+    content: '\f00c'; /* Font Awesome check icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--primary-color); /* Green checkmark */
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* Experience Section (Timeline) */
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--border-color); /* Timeline line matches border color */
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+    color: var(--text-color); /* Ensure timeline item text is readable */
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -17px; /* For odd items */
+    background-color: var(--background-dark); /* Dot background is now dark */
+    border: 4px solid var(--primary-color); /* Primary color border for dot */
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+}
+
+/* Adjust dot position for even items */
+.timeline-item:nth-child(even)::after {
+    left: -17px;
+}
+
+.timeline-item h3 {
+    margin-bottom: 5px;
+    color: var(--heading-color);
+    font-size: 1.3em;
+}
+
+.timeline-company {
+    color: var(--link-color); /* Link color for company names */
+    font-style: italic;
+    font-weight: normal;
+}
+
+.timeline-duration {
+    font-size: 0.9em;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.timeline-item p {
+    font-size: 1em;
+}
+
+/* Projects Section (Optional) */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.project-card {
+    background-color: var(--background-dark); /* Dark background for project cards */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h3 {
+    color: var(--link-color); /* Project titles use link color */
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.project-card p {
+    font-size: 0.95em;
+    margin-bottom: 20px;
+    color: var(--text-color); /* Ensure project card text is readable */
+}
+
+.project-link {
+    display: inline-block;
+    background-color: var(--primary-color); /* GitHub green for project links */
+    color: var(--background-dark); /* Dark text on green button */
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.project-link:hover {
+    background-color: #4CAF50; /* Darker green on hover */
+}
+
+/* Contact Section */
+.contact-info {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.contact-info p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: var(--text-color); /* Ensure contact info text is readable */
+}
+
+
+.contact-info p i {
+    color: var(--primary-color); /* Icons use primary color */
+    margin-right: 10px;
+    width: 25px; /* Ensure consistent icon alignment */
+    text-align: center;
+}
+
+.social-links {
+    margin-top: 25px;
+}
+
+.social-links a {
+    color: var(--secondary-color); /* Social icons use secondary color */
+    margin: 0 15px;
+    font-size: 2.5em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color); /* Primary color on hover */
+    transform: scale(1.1);
+}
+
+
+/* Footer */
+footer {
+    background-color: var(--background-dark); /* Very dark GitHub-like footer */
+    color: var(--text-color); /* Lighter text for footer */
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.8em;
+    }
+
+    .hero-section .tagline {
+        font-size: 1.2em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr; /* Stack skill categories on small screens */
+    }
+
+    .timeline::after {
+        left: 18px; /* Move timeline line for smaller screens */
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px; /* Adjust padding for items */
+        padding-right: 20px;
+        text-align: left !important; /* Force left align for all items */
+    }
+
+    .timeline-item::after {
+        left: 10px; /* Adjust dot position for smaller screens */
+        right: unset; /* Remove right property for consistency */
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        left: 0; /* Align all timeline items to the left */
+    }
+
+    .cta-buttons .btn {
+        display: block; /* Stack buttons vertically */
+        width: fit-content;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.2em;
+    }
+
+    .hero-section .tagline {
+        font-size: 1em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .social-links a {
+        font-size: 2em;
+        margin: 0 10px;
+    }
+}
